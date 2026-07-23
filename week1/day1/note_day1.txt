@@ -1,0 +1,108 @@
+
+
+VARIABLES
+ #Printing
+    print(a+b)
+    both need to be same type
+    e.g. both strings ("a"+"b" → concatenation) or both numbers (2+3 → addition). You can't + a string and an int/float directly (like the "changed"+type(c) error earlier) — you'd have to convert one to match the other first, e.g. str(a) + b or a + int(b).
+
+    #Printing
+    print(a,b)
+    types can be different — no need to match.
+    print() takes each argument separately and converts it to a string for you, then joins them with a space. So mixing a string, int, float, etc. with commas always works.
+
+
+LITERALS
+    a fixed value written directly in code (e.g. 2, 2.3, "acb", True).
+    The literal is the value as written; the variable is the name pointing to it.
+
+
+TYPE CASTING
+ #Type Conversion / Type Casting
+    1.Implicit(auto) - Python converts automatically
+    z=1
+    zz=1.2
+    print(type(z+zz))   -> float
+
+    2.Explicit(manual) - you convert it yourself
+    num_str='11'
+    num_int=5
+    num_str=int(num_str)   -> str to int
+    num_int=str(num_int)   -> int to str
+
+
+PRINT()
+ #print() parameters
+    print(object, sep=, end=, file=, flush=)
+    sep  - separator between multiple objects (default is space)
+    end  - what to print after, instead of newline (default "\n")
+    file - where to print, default sys.stdout (screen)
+    flush- whether output is flushed immediately or buffered
+
+    print("a", "b", "c", sep="-")     -> a-b-c
+    print("Python", end="")
+    print(" is powerful")             -> Python is powerful
+
+
+INPUT()
+    name = input("Enter your name: ")   -> prompt is optional, can also just do input()
+    always returns a string, even if user types a number.
+    age = int(input("Enter age: "))     -> cast it yourself for int/float
+
+    Trailing newline stripped automatically:
+    when you press Enter, that keypress produces a \n character. Many languages keep
+    that \n on the line you read, so you have to strip it yourself. Python's input()
+    does this for you - it reads up to Enter but doesn't include the \n in the string.
+
+ #Multiple values in one line
+     input() only ever gives you back one whole string - even if you type 5 10, you get
+     "5 10" as a single string, not two separate values. To get two variables out of it,
+     you need .split().
+
+     .split() breaks a string into a list, cutting wherever there's whitespace by default:
+     "5 10".split()                     -> ['5', '10']   a list of two strings
+
+     So if you type 5 10 and do:
+     a, b = input("Enter two numbers: ").split()
+     Python takes that list ['5','10'] and unpacks it - the first item goes into a, the
+     second into b. Both are still strings ('5','10') at this point.
+
+     To get actual integers instead of strings, wrap it with map(int, ...), which applies
+     int() to every item in the list before unpacking:
+     a, b = map(int, input("Enter two numbers: ").split())
+     # now a and b are real ints, e.g. 5 and 10
+
+     invalid/mismatched unpack -> ValueError
+     no input left (e.g. reading from a file/pipe) -> EOFError
+
+
+OPERATORS
+    Arithmetic:  +  -  *  /  //  %  **
+        //  -> floor division
+        **  -> exponent
+
+    Assignment:  =  +=  -=  *=  /=  //=  %=  **=
+        a += 2   ->  a = a + 2   (same pattern for all of the above)
+        careful: a += 2 only works if a is already a number.
+        if a holds a string (e.g. a=g where g="avb"), a+=2 -> TypeError,
+        can't add str and int directly.
+
+    Comparison (returns boolean):  ==  !=  <  >  <=  >=
+
+    Logical:  and  or  not
+
+
+DATA TYPES
+    Numeric:
+        int      - whole numbers            a=2
+        float    - decimal numbers          zz=1.2
+        complex  - imaginary part            3+4j (rare)
+
+    Text:
+        str      - text, single or double quotes    b="avb"  c='acb'
+
+    Boolean:
+        bool     - True / False, subtype of int (True==1, False==0)
+
+    type(x) -> check any value's type
+
