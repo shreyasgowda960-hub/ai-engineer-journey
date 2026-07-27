@@ -1,0 +1,104 @@
+
+DEFINING & CALLING FUNCTIONS
+    def function_name():
+        ...
+
+    def just defines the function - nothing runs until you CALL it by
+    name with ().
+
+    def greet():
+        print("Hello!")
+
+    greet()      -> prints "Hello!"
+    greet()      -> prints "Hello!" again (called twice)
+
+
+PARAMETERS VS ARGUMENTS
+    parameter = the variable name in the function definition (placeholder)
+    argument  = the actual value passed in when you call the function
+
+    def greet(name):        # name = parameter
+        print(f"Hello, {name}")
+
+    greet("Alex")            # "Alex" = argument
+
+
+RETURN VS PRINT
+    print() just displays a value - it's gone after that, can't be reused.
+    return sends a value back to the caller - can be stored, reused, passed on.
+
+    def add(a, b):
+        return a + b
+
+    result = add(3, 5)     # result = 8, usable later
+    print(result * 2)      # 16
+
+    if the function only prints (no return), it implicitly returns None -
+    storing that in a variable and using it (eg. None * 5) crashes with
+    TypeError.
+
+    NOTE: two functions can't share the same name - the second definition
+    overwrites the first (no overloading like Java/C++).
+
+
+DEFAULT ARGUMENTS
+    a parameter can have a default value - it's only used if the caller
+    doesn't pass that argument.
+
+    def greet(name="friend"):
+        print(f"Hello, {name}")
+
+    greet()          -> Hello, friend   (default used)
+    greet("Shrey")   -> Hello, Shrey    (override used)
+
+    NOTE: a parameter with the same name as a global variable SHADOWS it
+    inside the function - the function uses its own local/parameter value,
+    not the global one, unless told otherwise (see scope below).
+
+
+MULTIPLE PARAMETERS / MULTIPLE RETURN VALUES
+    a function can return more than one value at once, separated by commas -
+    it comes back as a tuple.
+
+    def stats(a, b):
+        return a+b, a*b
+
+    print(stats(2,3))          -> (5, 6)
+
+    unpack straight into separate variables:
+    total, product = stats(20, 2)   -> total=22, product=40
+
+
+SCOPE - LOCAL VS GLOBAL
+    local  = variable created INSIDE a function - only exists while that
+             function runs, gone after.
+    global = variable created OUTSIDE any function - visible everywhere,
+             but a function can only READ it, not change it (without the
+             global keyword, which should almost never be used).
+
+    x = 10                  # global
+    def show():
+        y = 5                # local
+        print(x)              # can read global x -> 10
+        print(y)
+    show()
+    print(x)                 # 10, still fine
+    print(y)                 # NameError - y doesn't exist out here
+
+    WHY PASS PARAMETERS INSTEAD OF USING GLOBALS:
+    a function that depends on globals is unpredictable - its output depends
+    on whatever state exists outside it, and breaks silently if that state
+    changes. a function using only parameters is self-contained - same
+    inputs always give same output, reusable anywhere. (this is "pure
+    function" thinking - testable/reusable vs fragile.)
+
+    example of the fragile version: describe_v2() reads global name/age -
+    to describe a different person you'd have to reassign the globals
+    first. describe(name, age) as parameters just works: describe("Riya", 8)
+    anywhere, no setup needed.
+
+    REMINDER: calling a function that only print()s (no return) inside
+    another print() prints "None" too, since the function's actual return
+    value is None. eg. print(describe("Appu", 10)) prints the sentence AND
+    then None. just call describe("Appu", 10) plainly, no wrapping print().
+
