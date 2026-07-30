@@ -1,0 +1,146 @@
+words = {'the': 3, 'cat': 2, 'sat': 1, 'on': 1, 'mat': 1, 'ran': 1}
+
+for x in words:
+    print(words[x])
+
+a={}
+a["ck"]=3
+a["gk"]=4
+
+print(a)
+n = [1, 1, 2, 3, 4,5,6,7,7,6,6]
+
+uc=[]
+count=[]
+
+for i in n:
+    if i not in uc:
+        uc.append(i)
+        count.append(1)
+    else:
+        x=uc.index(i)
+        count[x]=count[x]+1
+
+
+print(uc)
+print(count)
+
+
+sentence = "the cat sat on the mat the cat ran"
+
+words=sentence.split()
+print(words)
+
+word_count={}
+
+for x in words:
+    if x in word_count:
+        word_count[x]=word_count[x]+1
+    else:
+        word_count[x]=1
+
+print(word_count)
+
+
+===================================================
+DAY 5 NOTES - COMPREHENSIONS & STRING METHODS
+===================================================
+
+LIST COMPREHENSIONS
+    compact one-line way to write a for loop that builds a list.
+
+    loop version:
+        my_list = []
+        for x in range(0,6):
+            my_list.append(x*x)
+
+    same thing as a comprehension:
+        squares = [x*x for x in range(0,6)]
+
+    read order: [ TRANSFORM  for VAR in ITERABLE ]
+    the expression to build comes FIRST, then the for-loop driving it -
+    reversed order from how you'd think of it in a normal loop.
+
+    NOTE: "for a in range(10,20)" alone (no expression before it, no
+    colon+body after it) is a SyntaxError - it's only valid either as
+    part of a real for-loop (needs a colon + body) or inside a
+    comprehension (needs an expression before it).
+
+
+LIST COMPREHENSION WITH FILTER (if)
+    add a condition at the end to only include items that pass it:
+
+    evens = [x for x in range(10) if x % 2 == 0]
+
+    read order: [ TRANSFORM  for VAR in ITERABLE  if CONDITION ]
+    - the part BEFORE "for"  = the TRANSFORM (what gets built/computed)
+    - the part AFTER "if"     = the FILTER (which items qualify at all)
+
+    eg. squares of even numbers 0-20:
+        even_squares = [x*x for x in range(0,21) if x%2==0]
+
+
+DICT COMPREHENSIONS
+    same idea, but need both a KEY and a VALUE separated by ":", inside {}
+
+    squares_dict = {x: x*x for x in range(5)}
+    # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+
+
+STRING METHODS RECAP
+    .split()              string -> list of words (splits on whitespace)
+    .join(list)             list -> string, joined with a separator
+                             "-".join(["hi","there"]) -> "hi-there"
+    .strip()                removes leading/trailing whitespace only
+    .lower() / .upper()      case conversion
+    .replace(old,new)         replaces every occurrence of old with new
+    .title()                  capitalizes each word
+    .count(sub)                counts how many times a substring appears
+                                 "banana".count("a") -> 3
+    .find(sub)                   index of first match, -1 if not found
+                                  "hello".find("l") -> 2
+    "sub" in string                membership check, returns True/False
+                                    "cat" in "concatenate" -> True
+    .startswith(sub) / .endswith(sub)   "hello".startswith("he") -> True
+    .isdigit() / .isalpha()               "123".isdigit() -> True
+                                            "abc".isalpha() -> True
+
+    SLICING & REVERSING (same slicing rules as lists, stop is EXCLUSIVE)
+        s = "hello"
+        s[::-1]        -> "olleh"   reverses the whole string
+        s[1:4]           -> "ell"     chars at index 1,2,3
+        s[1:4:2]          -> "el"      same range, but step of 2
+
+    STRINGS ARE IMMUTABLE - same rule as tuples:
+        s.upper() does NOT change s - it builds and RETURNS a brand new
+        string. if you don't store/print that return value, it's just
+        discarded and s stays exactly as it was.
+        eg: s = "hello"; s.upper(); print(s)  -> still prints "hello"
+        must do: s = s.upper()  to actually keep the change.
+
+
+REQUIRED TASKS DONE
+    (a) squares of even numbers 0-20, single comprehension:
+        even_squares = [x*x for x in range(0,21) if x%2==0]
+        -> [0, 4, 16, 36, 64, 100, 144, 196, 256, 324, 400]
+
+    (b) palindrome checker (case-insensitive):
+        def is_palindrome(word):
+            word = word.lower()
+            if word == word[::-1]:
+                return True
+            else:
+                return False
+
+        works because .lower() removes case differences before
+        comparing, and [::-1] reverses the string for comparison.
+
+
+QUICK REMINDERS
+    list[x]        -> gives a VALUE (you supply the index/position)
+    list.index(x)   -> gives an INDEX/position (you supply the value)
+                        (opposite directions - easy to mix up)
+
+    a variable/method with the SAME NAME as a built-in (eg naming a list
+    "list", or a file "collections.py") SHADOWS the real built-in -
+    avoid reusing built-in names.
