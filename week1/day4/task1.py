@@ -37,10 +37,10 @@ sentence = "the cat sat on the mat the cat ran"
 
 print(sentence.split())
 words=sentence.split()
-print(words)
+print("words :",words)
 count_of_words=words.count("cat")
 print(count_of_words)
-
+# words : ['the', 'cat', 'sat', 'on', 'the', 'mat', 'the', 'cat', 'ran']
 words_count={}
 
 for word in words:
