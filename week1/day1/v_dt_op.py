@@ -18,7 +18,7 @@ print(type(f))
 
 # Multiple var
 
-e,  f ,  g=  2.3,   4   , "avb"
+e,  f ,  g=  2.3,   4   , "avba"
 print(e,f,g)
 print(g,e)
 
