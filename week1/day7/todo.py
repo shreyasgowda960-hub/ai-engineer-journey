@@ -21,7 +21,7 @@ while True:
                         break
                         
         elif x=="q":
-            print("Quitting...........................")                
+            print("Quitting............................")                
             break
         else:
               print("invalid choice ")
